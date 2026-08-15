@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Yara 🤍</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: linear-gradient(135deg, #fff7fa, #f5dce6);
+
+      font-family: Arial, sans-serif;
+      color: #55323f;
+    }
+
+    .card {
+      width: 85%;
+      max-width: 650px;
+
+      padding: 35px 25px;
+
+      text-align: center;
+
+      background: rgba(255,255,255,0.85);
+
+      border-radius: 25px;
+
+      box-shadow: 0 20px 60px rgba(100,50,70,0.2);
+    }
+
+    h1 {
+      color: #b85c78;
+      font-size: 55px;
+      margin-bottom: 10px;
+    }
+
+    .heart {
+      font-size: 30px;
+    }
+
+    button {
+      border: none;
+      padding: 13px 25px;
+
+      border-radius: 30px;
+
+      background: #b85c78;
+      color: white;
+
+      font-size: 16px;
+
+      cursor: pointer;
+    }
+
+    #message {
+      margin-top: 30px;
+
+      font-size: 22px;
+      line-height: 2;
+
+      text-align: right;
+    }
+
+    .text {
+      opacity: 0;
+      transform: translateY(20px);
+
+      animation: show 1.5s forwards;
+    }
+
+    .text:nth-child(2) {
+      animation-delay: 2s;
+    }
+
+    .text:nth-child(3) {
+      animation-delay: 4s;
+    }
+
+    @keyframes show {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .music {
+      margin-top: 25px;
+
+      font-size: 13px;
+      color: #96717e;
+    }
+
+    .floating-heart {
+      position: fixed;
+      bottom: -30px;
+
+      animation: float 8s linear forwards;
+    }
+
+    @keyframes float {
+
+      0% {
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+
+    }
+  </style>
+
+</head>
+
+
+<body>
+
+  <div class="card">
+
+    <div class="heart">✦ 🤍 ✦</div>
+
+    <h1>Yara</h1>
+
+    <button id="open">
+      افتحي رسالتي 🤍
+    </button>
+
+
+    <div id="message" style="display:none;">
+
+      <p class="text">
+        بهاد اليوم كنت بتمنى اكون اول شخص بعايدك فيو وانا قدامك ما يكون من ورا الشاشة لحتى اعبرلك عن اهتمامي الكبير وفرحتي باليوم يلي اجت فيو يارتي حبيبة قلبي وشريكة حياتي المستقبلية ان شاء الله
+      </p>
+
+      <p class="text">
+        بتمنى باليوم هاد تكون بداية لنهاية الفترة الطويلة يلي خلتنا ما نكون مع بعض ونكون ذكريات واقعية ويكون عيد ميلادك الجاي معي واخليه احلى يوم بالدنيا.
+      </p>
+
+      <p class="text">
+        كل عام وانتي بالف خير عزيزتي وبتمنالك التوفيق بكل خطوة الك والتيسير ، الله يبعد عن قلبك الهموم ويكتبلك كل خير ،بحبك كتير والله يخليلي ياكي يارب 🤍🤍
+      </p>
+
+    </div>
+
+
+    <div class="music">
+      ♪ موسيقى هادئة
+    </div>
+
+  </div>
+
+
+<script>
+
+const button = document.getElementById("open");
+
+const message = document.getElementById("message");
+
+
+button.addEventListener("click", function() {
+
+  message.style.display = "block";
+
+  button.style.display = "none";
+
+  startMusic();
+
+  setInterval(createHeart, 1000);
+
+});
+
+
+/* موسيقى هادئة */
+
+function startMusic() {
+
+  const AudioContext =
+    window.AudioContext ||
+    window.webkitAudioContext;
+
+  const audio =
+    new AudioContext();
+
+  const gain =
+    audio.createGain();
+
+  gain.gain.value = 0.03;
+
+  gain.connect(audio.destination);
+
+
+  const notes = [
+    261.63,
+    329.63,
+    392,
+    329.63
+  ];
+
+  let i = 0;
+
+
+  function play() {
+
+    const oscillator =
+      audio.createOscillator();
+
+    const volume =
+      audio.createGain();
+
+
+    oscillator.type = "sine";
+
+    oscillator.frequency.value =
+      notes[i];
+
+
+    volume.gain.setValueAtTime(
+      0,
+      audio.currentTime
+    );
+
+
+    volume.gain.linearRampToValueAtTime(
+      0.15,
+      audio.currentTime + 0.5
+    );
+
+
+    volume.gain.exponentialRampToValueAtTime(
+      0.001,
+      audio.currentTime + 3
+    );
+
+
+    oscillator.connect(volume);
+
+    volume.connect(gain);
+
+
+    oscillator.start();
+
+    oscillator.stop(
+      audio.currentTime + 3
+    );
+
+
+    i++;
+
+    if (i >= notes.length) {
+      i = 0;
+    }
+
+  }
+
+
+  play();
+
+  setInterval(play, 3000);
+
+}
+
+
+/* قلوب */
+
+function createHeart() {
+
+  const heart =
+    document.createElement("div");
+
+  heart.className =
+    "floating-heart";
+
+  heart.innerHTML = "🤍";
+
+  heart.style.left =
+    Math.random() * 100 + "vw";
+
+  heart.style.fontSize =
+    (15 + Math.random() * 20) + "px";
+
+  document.body.appendChild(heart);
+
+
+  setTimeout(function() {
+
+    heart.remove();
+
+  }, 8000);
+
+}
+
+</script>
+
+</body>
+
+</html>
