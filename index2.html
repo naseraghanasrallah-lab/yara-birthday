@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Yara 🤍</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(circle at 20% 20%, #ffffff, transparent 30%),
+        radial-gradient(circle at 80% 80%, #f2c9d8, transparent 35%),
+        linear-gradient(135deg, #fff8fb, #f6e1ea);
+
+      color: #55323f;
+      font-family: Arial, sans-serif;
+    }
+
+    .card {
+      position: relative;
+      z-index: 2;
+
+      width: min(720px, calc(100% - 25px));
+
+      max-height: 92vh;
+      overflow-y: auto;
+
+      padding: 40px 25px 30px;
+
+      text-align: center;
+
+      background: rgba(255, 255, 255, 0.88);
+
+      border-radius: 28px;
+
+      box-shadow:
+        0 25px 70px rgba(90, 45, 65, 0.18);
+
+      animation: appear 1s ease;
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: translateY(25px) scale(.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .sparkle {
+      color: #d28aa0;
+      font-size: 28px;
+
+      animation: sparkle 2.5s infinite;
+    }
+
+    @keyframes sparkle {
+      50% {
+        transform: scale(1.2);
+        opacity: .55;
+      }
+    }
+
+    .small-title {
+      margin-top: 5px;
+
+      color: #98717f;
+
+      font-size: 12px;
+
+      letter-spacing: 4px;
+
+      direction: ltr;
+    }
+
+    h1 {
+      margin: 8px 0;
+
+      color: #b85c78;
+
+      font-family: Georgia, serif;
+
+      font-size: clamp(55px, 12vw, 85px);
+
+      line-height: 1;
+    }
+
+    h1 span {
+      font-size: .5em;
+    }
+
+    .line {
+      width: 70px;
+      height: 2px;
+
+      margin: 20px auto 27px;
+
+      background: #d99aae;
+
+      border-radius: 20px;
+    }
+
+    #openButton {
+      border: none;
+
+      padding: 13px 28px;
+
+      border-radius: 50px;
+
+      background: #b85c78;
+
+      color: white;
+
+      font-size: 15px;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 10px 25px rgba(184, 92, 120, .28);
+
+      transition: .3s;
+    }
+
+    #openButton:hover {
+      transform: translateY(-3px);
+    }
+
+    #openButton:active {
+      transform: scale(.96);
+    }
+
+    #message {
+      max-width: 650px;
+
+      margin: 30px auto 0;
+
+      text-align: right;
+
+      font-family: Georgia, serif;
+
+      font-size: clamp(20px, 3.5vw, 26px);
+
+      line-height: 2.05;
+    }
+
+    .paragraph {
+      margin: 0 0 24px;
+
+      opacity: 0;
+
+      transform: translateY(20px);
+
+      animation:
+        messageAppear 1.4s ease forwards;
+    }
+
+    .paragraph:nth-child(2) {
+      animation-delay: 2s;
+    }
+
+    .paragraph:nth-child(3) {
+      animation-delay: 4s;
+    }
+
+    @keyframes messageAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .heart {
+      position: fixed;
+
+      bottom: -40px;
+
+      pointer-events: none;
+
+      z-index: 1;
+
+      opacity: 0;
+
+      animation:
+        floatHeart linear forwards;
+    }
+
+    @keyframes floatHeart {
+
+      0% {
+        transform:
+          translateY(0)
+          rotate(0deg);
+
+        opacity: 0;
+      }
+
+      10% {
+        opacity: .65;
+      }
+
+      100% {
+        transform:
+          translateY(-110vh)
+          rotate(25deg);
+
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .card {
+        padding: 35px 20px 25px;
+
+        border-radius: 23px;
+      }
+
+      #message {
+        font-size: 21px;
+
+        line-height: 1.95;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <main class="card">
+
+    <div class="sparkle">
+      ✦
+    </div>
+
+    <div class="small-title">
+      HAPPY BIRTHDAY
+    </div>
+
+    <h1>
+      Yara <span>🤍</span>
+    </h1>
+
+    <div class="line"></div>
+
+
+    <button id="openButton">
+      افتحي رسالتي 🤍
+    </button>
+
+
+    <section id="message" class="hidden">
+
+      <p class="paragraph">
+        بهاد اليوم كنت بتمنى اكون اول شخص بعايدك فيو وانا قدامك ما يكون من ورا الشاشة لحتى اعبرلك عن اهتمامي الكبير وفرحتي باليوم يلي اجت فيو يارتي حبيبة قلبي وشريكة حياتي المستقبلية ان شاء الله
+      </p>
+
+      <p class="paragraph">
+        بتمنى باليوم هاد تكون بداية لنهاية الفترة الطويلة يلي خلتنا ما نكون مع بعض ونكون ذكريات واقعية ويكون عيد ميلادك الجاي معي واخليه احلى يوم بالدنيا.
+      </p>
+
+      <p class="paragraph">
+        كل عام وانتي بالف خير عزيزتي وبتمنالك التوفيق بكل خطوة الك والتيسير ، الله يبعد عن قلبك الهموم ويكتبلك كل خير ،بحبك كتير والله يخليلي ياكي يارب 🤍🤍
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    const button =
+      document.getElementById("openButton");
+
+    const message =
+      document.getElementById("message");
+
+
+    /* =========================
+       فتح الرسالة
+       ========================= */
+
+    button.addEventListener(
+      "click",
+      function () {
+
+        message.classList.remove(
+          "hidden"
+        );
+
+        button.style.display =
+          "none";
+
+        startMusic();
+
+        createHearts();
+
+        setInterval(
+          createHeart,
+          1200
+        );
+
+      }
+    );
+
+
+    /* =========================
+       الموسيقى
+       ========================= */
+
+    let audioStarted = false;
+
+    function startMusic() {
+
+      if (audioStarted) {
+        return;
+      }
+
+      audioStarted = true;
+
+
+      const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+
+      if (!AudioContext) {
+        return;
+      }
+
+
+      const audio =
+        new AudioContext();
+
+
+      const master =
+        audio.createGain();
+
+
+      master.gain.value =
+        0.035;
+
+
+      master.connect(
+        audio.destination
+      );
+
+
+      const chords = [
+
+        [261.63, 329.63, 392.00],
+
+        [220.00, 277.18, 329.63],
+
+        [174.61, 220.00, 261.63],
+
+        [196.00, 246.94, 293.66]
+
+      ];
+
+
+      let chord =
+        0;
+
+
+      function playChord() {
+
+        const now =
+          audio.currentTime;
+
+
+        chords[chord].forEach(
+          function (frequency, index) {
+
+            const oscillator =
+              audio.createOscillator();
+
+
+            const volume =
+              audio.createGain();
+
+
+            oscillator.type =
+              index === 0
+                ? "sine"
+                : "triangle";
+
+
+            oscillator.frequency.value =
+              frequency;
+
+
+            volume.gain.setValueAtTime(
+              0,
+              now
+            );
+
+
+            volume.gain.linearRampToValueAtTime(
+              0.14,
+              now + 1.3
+            );
+
+
+            volume.gain.exponentialRampToValueAtTime(
+              0.001,
+              now + 5.5
+            );
+
+
+            oscillator.connect(
+              volume
+            );
+
+
+            volume.connect(
+              master
+            );
+
+
+            oscillator.start(
+              now
+            );
+
+
+            oscillator.stop(
+              now + 5.7
+            );
+
+          }
+        );
+
+
+        chord =
+          (chord + 1) %
+          chords.length;
+
+      }
+
+
+      playChord();
+
+
+      setInterval(
+        playChord,
+        5200
+      );
+
+    }
+
+
+    /* =========================
+       القلوب
+       ========================= */
+
+    function createHeart() {
+
+      const heart =
+        document.createElement(
+          "div"
+        );
+
+
+      heart.className =
+        "heart";
+
+
+      heart.innerHTML =
+        Math.random() > .5
+          ? "♡"
+          : "🤍";
+
+
+      heart.style.left =
+        Math.random() * 100 +
+        "vw";
+
+
+      heart.style.fontSize =
+        14 +
+        Math.random() * 18 +
+        "px";
+
+
+      heart.style.animationDuration =
+        7 +
+        Math.random() * 7 +
+        "s";
+
+
+      document.body.appendChild(
+        heart
+      );
+
+
+      setTimeout(
+        function () {
+          heart.remove();
+        },
+        15000
+      );
+
+    }
+
+
+    function createHearts() {
+
+      for (
+        let i = 0;
+        i < 15;
+        i++
+      ) {
+
+        setTimeout(
+          createHeart,
+          i * 180
+        );
+
+      }
+
+    }
+
+  </script>
+
+</body>
+
+</html>
