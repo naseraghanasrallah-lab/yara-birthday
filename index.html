@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Happy Birthday Yara 🤍</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(circle at 20% 20%, #ffffff 0%, transparent 30%),
+        radial-gradient(circle at 80% 80%, #f3cbd9 0%, transparent 35%),
+        linear-gradient(135deg, #fff8fb, #f8e5ed);
+
+      color: #55323f;
+      font-family: "Cairo", sans-serif;
+    }
+
+    /* الخلفية */
+    .background-heart {
+      position: fixed;
+      bottom: -50px;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 0;
+
+      animation: floatHeart linear forwards;
+    }
+
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 0.65;
+      }
+
+      100% {
+        transform: translateY(-110vh) rotate(25deg);
+        opacity: 0;
+      }
+    }
+
+    /* الكرت */
+    .card {
+      position: relative;
+      z-index: 2;
+
+      width: min(760px, calc(100% - 28px));
+      max-height: 92vh;
+      overflow-y: auto;
+
+      margin: 20px auto;
+      padding: 45px 30px 30px;
+
+      text-align: center;
+
+      background: rgba(255, 255, 255, 0.84);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      border-radius: 30px;
+
+      box-shadow:
+        0 25px 70px rgba(126, 67, 91, 0.17);
+
+      backdrop-filter: blur(12px);
+
+      animation: cardAppear 1.2s ease;
+    }
+
+    @keyframes cardAppear {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .star {
+      color: #d28aa0;
+      font-size: 28px;
+
+      animation: sparkle 2.5s infinite ease-in-out;
+    }
+
+    @keyframes sparkle {
+      50% {
+        transform: scale(1.2);
+        opacity: 0.55;
+      }
+    }
+
+    .small-title {
+      margin-top: 5px;
+
+      color: #96717e;
+      font-size: 12px;
+      letter-spacing: 4px;
+
+      direction: ltr;
+    }
+
+    h1 {
+      margin: 8px 0;
+
+      color: #b85c78;
+
+      font-family: "Amiri", serif;
+      font-size: clamp(55px, 12vw, 85px);
+      line-height: 1;
+
+      font-weight: 700;
+    }
+
+    h1 span {
+      font-size: 0.5em;
+    }
+
+    .line {
+      width: 75px;
+      height: 2px;
+
+      margin: 20px auto 27px;
+
+      background: #d99aae;
+      border-radius: 20px;
+    }
+
+    /* زر فتح الرسالة */
+    #openButton {
+      border: none;
+      outline: none;
+
+      padding: 13px 28px;
+
+      border-radius: 50px;
+
+      background: #b85c78;
+      color: white;
+
+      font-family: "Cairo", sans-serif;
+      font-size: 15px;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 10px 25px rgba(184, 92, 120, 0.28);
+
+      transition: 0.3s;
+    }
+
+    #openButton:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 15px 30px rgba(184, 92, 120, 0.35);
+    }
+
+    #openButton:active {
+      transform: scale(0.96);
+    }
+
+    /* الرسالة */
+    #message {
+      max-width: 650px;
+
+      margin: 30px auto 0;
+
+      text-align: right;
+
+      font-family: "Amiri", serif;
+      font-size: clamp(20px, 3.5vw, 26px);
+      line-height: 2.05;
+    }
+
+    .paragraph {
+      margin: 0 0 24px;
+
+      opacity: 0;
+      transform: translateY(25px);
+
+      animation: messageAppear 1.4s ease forwards;
+    }
+
+    .paragraph:nth-child(2) {
+      animation-delay: 2.1s;
+    }
+
+    .paragraph:nth-child(3) {
+      animation-delay: 4.2s;
+    }
+
+    @keyframes messageAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .signature {
+      margin-top: 30px;
+
+      text-align: center;
+
+      color: #b85c78;
+
+      font-size: 23px;
+
+      opacity: 0;
+      animation: messageAppear 1.3s ease 6s forwards;
+    }
+
+    /* حالة الموسيقى */
+    .music {
+      margin-top: 25px;
+
+      color: #96717e;
+      font-size: 12px;
+
+      opacity: 0.85;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* للموبايل */
+    @media (max-width: 600px) {
+
+      .card {
+        padding: 38px 21px 25px;
+        border-radius: 24px;
+      }
+
+      #message {
+        font-size: 21px;
+        line-height: 1.95;
+      }
+
+      h1 {
+        font-size: 62px;
+      }
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <!-- القلوب -->
+  <div id="hearts"></div>
+
+
+  <main class="card">
+
+    <div class="star">✦</div>
+
+    <div class="small-title">
+      HAPPY BIRTHDAY
+    </div>
+
+    <h1>
+      Yara <span>🤍</span>
+    </h1>
+
+    <div class="line"></div>
+
+
+    <!-- الزر -->
+    <button id="openButton">
+      افتحي رسالتي 🤍
+    </button>
+
+
+    <!-- الرسالة -->
+    <section id="message" class="hidden">
+
+      <p class="paragraph">
+        بهاد اليوم كنت بتمنى اكون اول شخص بعايدك فيو وانا قدامك ما يكون من ورا الشاشة لحتى اعبرلك عن اهتمامي الكبير وفرحتي باليوم يلي اجت فيو يارتي حبيبة قلبي وشريكة حياتي المستقبلية ان شاء الله
+      </p>
+
+      <p class="paragraph">
+        بتمنى باليوم هاد تكون بداية لنهاية الفترة الطويلة يلي خلتنا ما نكون مع بعض ونكون ذكريات واقعية ويكون عيد ميلادك الجاي معي واخليه احلى يوم بالدنيا.
+      </p>
+
+      <p class="paragraph">
+        كل عام وانتي بالف خير عزيزتي وبتمنالك التوفيق بكل خطوة الك والتيسير ، الله يبعد عن قلبك الهموم ويكتبلك كل خير ،بحبك كتير والله يخليلي ياكي يارب 🤍🤍
+      </p>
+
+      <div class="signature">
+        إلكِ، بكل الحب 🤍
+      </div>
+
+    </section>
+
+
+    <div class="music">
+      ♪ موسيقى هادئة
+    </div>
+
+  </main>
+
+
+
+  <script>
+
+    const button = document.getElementById("openButton");
+    const message = document.getElementById("message");
+    const hearts = document.getElementById("hearts");
+
+    let audioContext;
+    let musicStarted = false;
+
+
+    /* =========================
+       موسيقى هادئة
+       ========================= */
+
+    function startMusic() {
+
+      if (musicStarted) return;
+
+      musicStarted = true;
+
+      try {
+
+        audioContext =
+          new (window.AudioContext ||
+               window.webkitAudioContext)();
+
+        const master =
+          audioContext.createGain();
+
+        master.gain.value = 0.035;
+
+        master.connect(
+          audioContext.destination
+        );
+
+
+        const chords = [
+
+          [261.63, 329.63, 392.00],
+
+          [220.00, 277.18, 329.63],
+
+          [174.61, 220.00, 261.63],
+
+          [196.00, 246.94, 293.66]
+
+        ];
+
+
+        let chordIndex = 0;
+
+
+        function playChord() {
+
+          const now =
+            audioContext.currentTime;
+
+
+          chords[chordIndex].forEach(
+            (frequency, index) => {
+
+              const oscillator =
+                audioContext.createOscillator();
+
+              const gain =
+                audioContext.createGain();
+
+
+              oscillator.type =
+                index === 0
+                  ? "sine"
+                  : "triangle";
+
+
+              oscillator.frequency.value =
+                frequency;
+
+
+              gain.gain.setValueAtTime(
+                0,
+                now
+              );
+
+
+              gain.gain.linearRampToValueAtTime(
+                0.13,
+                now + 1.4
+              );
+
+
+              gain.gain.exponentialRampToValueAtTime(
+                0.001,
+                now + 5.5
+              );
+
+
+              oscillator.connect(gain);
+
+              gain.connect(master);
+
+
+              oscillator.start(now);
+
+              oscillator.stop(
+                now + 5.7
+              );
+
+            }
+          );
+
+
+          chordIndex =
+            (chordIndex + 1) %
+            chords.length;
+
+        }
+
+
+        playChord();
+
+        setInterval(
+          playChord,
+          5200
+        );
+
+      }
+
+      catch (error) {
+
+        console.log(
+          "Music unavailable"
+        );
+
+      }
+
+    }
+
+
+
+    /* =========================
+       القلوب المتحركة
+       ========================= */
+
+    function createHeart() {
+
+      const heart =
+        document.createElement("div");
+
+
+      heart.className =
+        "background-heart";
+
+
+      heart.innerHTML =
+        Math.random() > 0.5
+          ? "♡"
+          : "🤍";
+
+
+      heart.style.left =
+        Math.random() * 100 + "vw";
+
+
+      heart.style.fontSize =
+        (14 + Math.random() * 18) +
+        "px";
+
+
+      heart.style.animationDuration =
+        (7 + Math.random() * 7) +
+        "s";
+
+
+      hearts.appendChild(
+        heart
+      );
+
+
+      setTimeout(() => {
+
+        heart.remove();
+
+      }, 15000);
+
+    }
+
+
+
+    /* =========================
+       فتح الرسالة
+       ========================= */
+
+    button.addEventListener(
+      "click",
+      function() {
+
+        message.classList.remove(
+          "hidden"
+        );
+
+
+        button.style.display =
+          "none";
+
+
+        startMusic();
+
+
+        for (
+          let i = 0;
+          i < 15;
+          i++
+        ) {
+
+          setTimeout(
+            createHeart,
+            i * 180
+          );
+
+        }
+
+
+        setInterval(
+          createHeart,
+          1200
+        );
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
